@@ -24,6 +24,10 @@ import { PrivacyPolicy, TermsAndConditions, RefundPolicy, CookiePolicy } from '.
 import { AboutPage, FAQPage, CommunityGuidelines, PricingPage, VerificationPage } from './components/InfoPages';
 import { ContactPage } from './components/Contact';
 import { TrendLab } from './components/TrendLab';
+import { SavedHub } from './components/SavedHub';
+import { ActivityLedger } from './components/ActivityLedger';
+import { ReportProblem } from './components/ReportProblem';
+import { AccountSwitcher } from './components/AccountSwitcher';
 import { MOCK_TALENT_POOL, MOCK_POSTS } from './constants';
 
 const App: React.FC = () => {
@@ -31,13 +35,28 @@ const App: React.FC = () => {
   const [selectedTalentId, setSelectedTalentId] = useState<string | null>(null);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('ffn_user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+    
+    const savedTheme = localStorage.getItem('ffn_theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+      document.body.classList.add('dark-protocol');
+    }
   }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('ffn_theme', newMode ? 'dark' : 'light');
+    if (newMode) document.body.classList.add('dark-protocol');
+    else document.body.classList.remove('dark-protocol');
+  };
 
   const handleLogin = (userData: any) => {
     setUser(userData);
@@ -84,16 +103,20 @@ const App: React.FC = () => {
       case 'shoots': return <Photoshoots />;
       case 'brands': return <Brands />;
       case 'castings': return <Castings />;
-      case 'events': return <Events />;
-      case 'journal': return <Journal />;
       case 'marketplace': return <Marketplace />;
       case 'network': return <Network />;
       case 'messages': return user ? <Messaging /> : <Auth onLogin={handleLogin} />;
       case 'auth': return <Auth onLogin={handleLogin} />;
       case 'my-profile': return user ? <MyProfile user={user} onLogout={handleLogout} /> : <Auth onLogin={handleLogin} />;
       case 'register-professional': return <RegisterProfessional onSuccess={handleLogin} />;
-      case 'apply': return <ApplyNow onSuccess={() => setActiveTab('directory')} />;
       
+      /* Settings Menu Routes */
+      case 'saved': return <SavedHub />;
+      case 'settings-page': return <MyProfile user={user} onLogout={handleLogout} />;
+      case 'activity': return <ActivityLedger />;
+      case 'report': return <ReportProblem />;
+      case 'switch-accounts': return <AccountSwitcher />;
+
       /* Legal & Informational Routes */
       case 'about': return <AboutPage />;
       case 'contact': return <ContactPage />;
@@ -111,9 +134,18 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout activeTab={activeTab === 'profile-view' ? 'directory' : (activeTab === 'post-view' ? 'feed' : activeTab)} onTabChange={setActiveTab} currentUser={user}>
-      {renderContent()}
-    </Layout>
+    <div className={isDarkMode ? 'dark-protocol-active' : ''}>
+      <Layout 
+        activeTab={activeTab === 'profile-view' ? 'directory' : (activeTab === 'post-view' ? 'feed' : activeTab)} 
+        onTabChange={setActiveTab} 
+        currentUser={user}
+        onLogout={handleLogout}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={toggleDarkMode}
+      >
+        {renderContent()}
+      </Layout>
+    </div>
   );
 };
 

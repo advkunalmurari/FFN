@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { User, UserRole } from '../types';
 import { 
@@ -98,13 +97,13 @@ export const ProfileHero: React.FC<{ user: User }> = ({ user }) => {
 
       {/* Visual Identity Section */}
       <div className="flex flex-col md:flex-row items-center md:items-end space-y-10 md:space-y-0 md:space-x-16 px-6 -mt-24 md:-mt-36 relative z-10">
-        <div className="flex flex-col md:flex-row items-center md:items-end space-y-6 md:space-y-0 md:space-x-10">
+        <div className="flex flex-col sm:flex-row items-center sm:items-end space-y-6 sm:space-y-0 sm:space-x-10">
           <div className="relative">
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className={`w-48 h-48 md:w-64 md:h-64 rounded-[4rem] p-2 bg-white shadow-[0_40px_80px_-12px_rgba(0,0,0,0.3)] transition-all ${isUploadingAvatar ? 'opacity-50' : ''}`}
+              className={`w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-[3.5rem] md:rounded-[4rem] p-2 bg-white shadow-[0_40px_80px_-12px_rgba(0,0,0,0.3)] transition-all ${isUploadingAvatar ? 'opacity-50' : ''}`}
             >
-               <div className="w-full h-full rounded-[3.5rem] overflow-hidden border-4 border-gray-50 bg-gray-100">
+               <div className="w-full h-full rounded-[3rem] md:rounded-[3.5rem] overflow-hidden border-4 border-gray-50 bg-gray-100">
                  <img 
                    src={avatarPreview} 
                    alt={user.username} 
@@ -119,11 +118,11 @@ export const ProfileHero: React.FC<{ user: User }> = ({ user }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-md rounded-[4rem] z-20"
+                  className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-md rounded-[3.5rem] md:rounded-[4rem] z-20"
                 >
                   <div className="flex flex-col items-center space-y-4">
-                    <Loader2 className="w-12 h-12 text-ffn-primary animate-spin" />
-                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ffn-black">Syncing...</span>
+                    <Loader2 className="w-10 h-10 text-ffn-primary animate-spin" />
+                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-ffn-black">Syncing...</span>
                   </div>
                 </motion.div>
               )}
@@ -134,10 +133,10 @@ export const ProfileHero: React.FC<{ user: User }> = ({ user }) => {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
-                className="absolute inset-0 flex items-center justify-center bg-emerald-500/10 backdrop-blur-sm rounded-[4rem] z-20"
+                className="absolute inset-0 flex items-center justify-center bg-emerald-500/10 backdrop-blur-sm rounded-[3.5rem] md:rounded-[4rem] z-20"
               >
-                 <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-2xl">
-                    <Check className="w-8 h-8" />
+                 <div className="w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-2xl">
+                    <Check className="w-6 h-6" />
                  </div>
               </motion.div>
             )}
@@ -145,27 +144,27 @@ export const ProfileHero: React.FC<{ user: User }> = ({ user }) => {
             <button 
               disabled={isUploadingAvatar}
               onClick={() => avatarInputRef.current?.click()}
-              className="absolute -bottom-3 -right-3 p-5 bg-ffn-black text-white rounded-[1.5rem] shadow-2xl hover:bg-ffn-primary transition-all disabled:opacity-50 hover:scale-110 z-30 group"
+              className="absolute -bottom-2 -right-2 p-4 bg-ffn-black text-white rounded-2xl shadow-2xl hover:bg-ffn-primary transition-all disabled:opacity-50 hover:scale-110 z-30 group"
             >
-              <Camera className="w-6 h-6 transition-transform group-hover:rotate-12" />
+              <Camera className="w-5 h-5 transition-transform group-hover:rotate-12" />
             </button>
           </div>
 
-          {/* NEXT to profile picture button - Desktop refined */}
-          <div className="pb-6 hidden md:block">
+          {/* NEXT to profile picture button */}
+          <div className="pb-4 md:pb-6">
             <motion.button
-              whileHover={{ scale: 1.05, x: 8 }}
+              whileHover={{ scale: 1.05, x: 5 }}
               whileTap={{ scale: 0.95 }}
               disabled={isUploadingAvatar}
               onClick={() => avatarInputRef.current?.click()}
-              className="px-10 py-6 bg-white border border-gray-100 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.4em] text-ffn-black shadow-2xl hover:shadow-ffn-primary/10 transition-all flex items-center space-x-5 disabled:opacity-50 group"
+              className="px-8 py-5 md:px-10 md:py-6 bg-white border border-gray-100 rounded-[1.8rem] md:rounded-[2rem] text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-ffn-black shadow-2xl hover:shadow-ffn-primary/10 transition-all flex items-center space-x-4 md:space-x-5 disabled:opacity-50 group"
             >
               {isUploadingAvatar ? (
-                <Loader2 className="w-5 h-5 animate-spin text-ffn-primary" />
+                <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin text-ffn-primary" />
               ) : (
-                <UploadCloud className="w-5 h-5 text-gray-300 group-hover:text-ffn-primary transition-colors" />
+                <UploadCloud className="w-4 h-4 md:w-5 md:h-5 text-gray-300 group-hover:text-ffn-primary transition-colors" />
               )}
-              <span className="whitespace-nowrap">{isUploadingAvatar ? 'Updating Identity...' : 'Upload Identity Photo'}</span>
+              <span className="whitespace-nowrap">{isUploadingAvatar ? 'Syncing...' : 'Update Avatar'}</span>
             </motion.button>
           </div>
         </div>
@@ -221,18 +220,6 @@ export const ProfileHero: React.FC<{ user: User }> = ({ user }) => {
               <Sparkles className="w-4 h-4 mr-3" /> Identity Score: {user.completionScore || 85}%
             </div>
           </div>
-        </div>
-        
-        {/* Mobile-only refined upload button */}
-        <div className="md:hidden w-full px-4 pt-6">
-           <button
-              disabled={isUploadingAvatar}
-              onClick={() => avatarInputRef.current?.click()}
-              className="w-full bg-white border border-gray-100 py-7 rounded-[2.5rem] text-[10px] font-black uppercase tracking-[0.5em] text-ffn-black shadow-xl flex items-center justify-center space-x-4 active:scale-95 transition-transform"
-            >
-              {isUploadingAvatar ? <Loader2 className="w-5 h-5 animate-spin text-ffn-primary" /> : <UploadCloud className="w-5 h-5 text-ffn-primary" />}
-              <span>{isUploadingAvatar ? 'Updating Identity...' : 'Update Identity Photo'}</span>
-            </button>
         </div>
 
         <input 

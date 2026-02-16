@@ -7,6 +7,76 @@ import {
 } from 'lucide-react';
 import { PRICING, MOCK_TALENT_POOL, MOCK_POSTS, BRAND_SOCIALS, MOCK_SHOOTS } from '../constants';
 
+const HubGraphic: React.FC<{ type: string }> = ({ type }) => {
+  switch (type) {
+    case 'Mumbai':
+      return (
+        <motion.svg 
+          viewBox="0 0 40 40" className="w-8 h-8 opacity-40 group-hover:opacity-100 group-hover:text-ffn-primary transition-all duration-700"
+          initial="initial" animate="animate"
+        >
+          <motion.circle 
+            cx="20" cy="20" r="15" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 4"
+            animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.circle 
+            cx="20" cy="20" r="8" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="0.5"
+            animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 3, repeat: Infinity }}
+          />
+          <circle cx="20" cy="20" r="2" fill="currentColor" />
+        </motion.svg>
+      );
+    case 'Paris':
+      return (
+        <motion.svg 
+          viewBox="0 0 40 40" className="w-8 h-8 opacity-40 group-hover:opacity-100 group-hover:text-ffn-accent transition-all duration-700"
+        >
+          <motion.path 
+            d="M20 5 L35 35 L5 35 Z" fill="none" stroke="currentColor" strokeWidth="1"
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+          />
+          <motion.path 
+            d="M10 25 H30" stroke="currentColor" strokeWidth="1"
+            animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 2, repeat: Infinity }}
+          />
+        </motion.svg>
+      );
+    case 'London':
+      return (
+        <motion.svg 
+          viewBox="0 0 40 40" className="w-8 h-8 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 transition-all duration-700"
+        >
+          <motion.rect 
+            x="12" y="12" width="16" height="16" rx="2" fill="none" stroke="currentColor" strokeWidth="1"
+            animate={{ rotate: 45 }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.rect 
+            x="12" y="12" width="16" height="16" rx="2" fill="none" stroke="currentColor" strokeWidth="1"
+            animate={{ rotate: -45 }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <circle cx="20" cy="20" r="1.5" fill="currentColor" />
+        </motion.svg>
+      );
+    case 'Milan':
+      return (
+        <motion.svg 
+          viewBox="0 0 40 40" className="w-8 h-8 opacity-40 group-hover:opacity-100 group-hover:text-ffn-secondary transition-all duration-700"
+        >
+          <motion.path 
+            d="M10 20 Q20 5 30 20 Q20 35 10 20" fill="none" stroke="currentColor" strokeWidth="1"
+            animate={{ scale: [0.9, 1.1, 0.9] }} transition={{ duration: 5, repeat: Infinity }}
+          />
+          <motion.path 
+            d="M15 20 Q20 10 25 20 Q20 30 15 20" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="0.5"
+            animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 3, repeat: Infinity }}
+          />
+        </motion.svg>
+      );
+    default:
+      return null;
+  }
+};
+
 export const Home: React.FC<{ onApply: () => void; onDirectory: () => void; onRegisterProfessional: () => void }> = ({ onApply, onDirectory, onRegisterProfessional }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -190,7 +260,32 @@ export const Home: React.FC<{ onApply: () => void; onDirectory: () => void; onRe
       </section>
 
       {/* Footer CTA */}
-      <section className="text-center space-y-16 md:space-y-32 py-24 md:py-64 border-t border-gray-100 relative px-4"><motion.h2 initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="text-6xl md:text-[14rem] font-serif italic leading-[1] md:leading-none max-w-[1400px] mx-auto tracking-tighter text-ffn-black">Your Future <br/><span className="text-gradient-vibrant font-bold not-italic">is Fashion.</span></motion.h2><div className="flex flex-col items-center space-y-16 md:space-y-24"><motion.button whileHover={{ scale: 1.1, rotate: 1 }} whileTap={{ scale: 0.9 }} onClick={onRegisterProfessional} className="bg-ffn-black text-white px-20 md:px-32 py-12 md:py-16 text-xs md:text-sm font-bold uppercase tracking-[0.5em] rounded-[3rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.25)]">Claim Your Identity Spot</motion.button><div className="flex flex-wrap justify-center gap-10 md:gap-24 text-[9px] md:text-[11px] uppercase tracking-[0.6em] text-gray-300 font-black border-t border-gray-100 pt-12 md:pt-20"><span>Mumbai Hub</span><span>Paris Studio</span><span>London Agency</span><span>Milan Collective</span></div></div></section>
+      <section className="text-center space-y-16 md:space-y-32 py-24 md:py-64 border-t border-gray-100 relative px-4">
+        <motion.h2 initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="text-6xl md:text-[14rem] font-serif italic leading-[1] md:leading-none max-w-[1400px] mx-auto tracking-tighter text-ffn-black">Your Future <br/><span className="text-gradient-vibrant font-bold not-italic">is Fashion.</span></motion.h2>
+        
+        <div className="flex flex-col items-center space-y-16 md:space-y-24">
+          <motion.button whileHover={{ scale: 1.1, rotate: 1 }} whileTap={{ scale: 0.9 }} onClick={onRegisterProfessional} className="bg-ffn-black text-white px-20 md:px-32 py-12 md:py-16 text-xs md:text-sm font-bold uppercase tracking-[0.5em] rounded-[3rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.25)]">Claim Your Identity Spot</motion.button>
+          
+          <div className="w-full max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-24 border-t border-gray-100 pt-16 md:pt-32">
+            {[
+              { label: 'Mumbai Hub', type: 'Mumbai' },
+              { label: 'Paris Studio', type: 'Paris' },
+              { label: 'London Agency', type: 'London' },
+              { label: 'Milan Collective', type: 'Milan' }
+            ].map((hub) => (
+              <motion.div 
+                key={hub.label}
+                whileHover={{ y: -10 }}
+                className="flex flex-col items-center space-y-6 group cursor-default"
+              >
+                <HubGraphic type={hub.type} />
+                <span className="text-[10px] md:text-[12px] uppercase tracking-[0.6em] text-gray-400 font-black group-hover:text-ffn-black transition-colors">{hub.label}</span>
+                <div className="w-1 h-1 rounded-full bg-gray-200 group-hover:bg-ffn-primary group-hover:scale-150 transition-all duration-500" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
     </motion.div>
   );
 };
